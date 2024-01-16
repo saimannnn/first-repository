@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula interattiva</title>
+</head>
+<body>
+    <input type="text" id="righe" placeholder="righe">
+    <input type="text" id="colonne" placeholder="colonne">
+    <button id="invia">invia</button>
+    <div id="struttura"></div>
+    
+    <script>
+
+        function accendi(id){
+        document.getElementById(id).src= "computer-on.png";
+        document.getElementById(id).setAttribute("onclick",`spegni('${id}')`);
+        }
+        function spegni(id){
+        document.getElementById(id).src= "computer-off.png";
+        document.getElementById(id).setAttribute("onclick",`accendi('${id}')`);
+
+        }
+
+        document.getElementById("invia").addEventListener("click", function(){
+            let righe = document.getElementById("righe").value;
+            let colonne = document.getElementById("colonne").value;
+
+            const tabella = document.createElement("table");
+
+            for (let i = 0; i < righe; i++){
+                const riga = document.createElement("tr")
+                for (let j = 0; j < colonne; j++){
+                    const colonna = document.createElement("td");
+                    const imgId = "img_" + i + "_" + j;
+                    colonna.innerHTML = `<img id="${imgId}" src="computer-off.png" width="150" height="125.29" onclick="accendi('${imgId}')">`;
+                    riga.appendChild(colonna);
+                }
+                tabella.appendChild(riga);
+            }
+
+            document.getElementById("struttura").innerHTML = "";
+            document.getElementById("struttura").appendChild(tabella);
+        });
+    </script>
+</body>
+</html>
